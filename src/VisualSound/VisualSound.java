@@ -3,7 +3,6 @@ package VisualSound;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-
 /**
  * Created by Green on 26.07.2015.
  */
@@ -15,6 +14,8 @@ public class VisualSound {
 
  //       WavFile wavFile = WavFile.openWavFile(new File(args[0]));
 
+
+        System.out.println("Firth commit");
 
     }
 }
