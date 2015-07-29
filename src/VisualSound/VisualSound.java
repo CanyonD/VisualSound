@@ -15,7 +15,7 @@ public class VisualSound {
  //       WavFile wavFile = WavFile.openWavFile(new File(args[0]));
 
 
-        System.out.println("Firth commit");
+        System.out.println("Firth commit?");
 
     }
 }
