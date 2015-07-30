@@ -13,6 +13,7 @@ public class AnalyzerFile {
     static Integer[] output;
     public String pathFile;
     String tempFilePathOutput = "c:\\VisualSound\\tmp_out.txt";
+    String tempFilePathResult = "Result.txt";
 
     public AnalyzerFile () {
         logger.info("Class null constructor start");
@@ -39,16 +40,22 @@ public class AnalyzerFile {
                             "rw");
         // Find end file
             while (file.available() != 0) {
-                tempValue = (int) dataFile.readByte();
-                writeFile.writeChar(tempValue);
+                tempValue = (int) dataFile.readUnsignedByte();
+                writeFile.writeByte(tempValue & 0xFF);
                 output[tempValue]++;
             }
             dataFile.close();
             logger.info("End analyze file " +
                     pathFile +
-                    " : tmp to :" +
+                    " : tmp to : " +
                     tempFilePathOutput
             );
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            logger.error("ArrayIndexOutOfBoundsException : " + e);
+            logger.error("Message : " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
         catch (EOFException e) {
             logger.error("EOFException : " + e);
@@ -75,11 +82,38 @@ public class AnalyzerFile {
 
     public void result() {
         logger.info("Result write, length : " + output.length);
-        for (int i = 0; i < output.length; i++) {
-            System.out.print(output[i] + " ");
-            // Перенос строки
-            if(((i+1) % 64) == 0)
-                System.out.println();
+
+//        Вывод данных на экран
+//        for (int i = 0; i < output.length; i++) {
+//            System.out.print(output[i] + "\t");
+//            // Перенос строки
+//            if(((i+1) % 32) == 0)
+//                System.out.println();
+//        }
+
+        // Вывод данных в 32 столбца
+
+
+        // Вывод данных в файл
+        try {
+            RandomAccessFile writeFile = new RandomAccessFile(
+                    tempFilePathResult,
+                    "rw");
+            for (int i = 0; i < output.length; i++) {
+                writeFile.writeInt(output[i]);
+            }
+        }
+        catch (FileNotFoundException e) {
+            logger.error("File Not Found Exception : " + e);
+            logger.error("Message : " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+        catch (IOException e) {
+            logger.error("File Exception : " + e);
+            logger.error("Message : " + e.getMessage());
+            e.printStackTrace();
+            return;
         }
     }
 }

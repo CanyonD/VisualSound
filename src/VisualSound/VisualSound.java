@@ -13,7 +13,8 @@ public class VisualSound {
         logger.info("Program start");
         logger.info("Path program : " + System.getProperty("user.dir"));
 
-        AnalyzerFile data = new AnalyzerFile("c:\\VisualSound\\tmp_input.txt");
+//        AnalyzerFile data = new AnalyzerFile("c:\\VisualSound\\tmp_input.txt");
+        AnalyzerFile data = new AnalyzerFile(System.getProperty("user.dir") + "\\" + args[0]);
 
         data.analyze();
         data.result();
