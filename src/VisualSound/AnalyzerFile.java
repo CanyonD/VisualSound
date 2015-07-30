@@ -40,7 +40,7 @@ public class AnalyzerFile {
                             "rw");
         // Find end file
             while (file.available() != 0) {
-                tempValue = (int) dataFile.readUnsignedByte();
+                tempValue = dataFile.readUnsignedByte();
                 writeFile.writeByte(tempValue & 0xFF);
                 output[tempValue]++;
             }
@@ -107,13 +107,11 @@ public class AnalyzerFile {
             logger.error("File Not Found Exception : " + e);
             logger.error("Message : " + e.getMessage());
             e.printStackTrace();
-            return;
         }
         catch (IOException e) {
             logger.error("File Exception : " + e);
             logger.error("Message : " + e.getMessage());
             e.printStackTrace();
-            return;
         }
     }
 }
