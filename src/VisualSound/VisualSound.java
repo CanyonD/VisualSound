@@ -9,11 +9,13 @@ import java.io.*;
 public class VisualSound {
     final static Logger logger = Logger.getLogger(VisualSound.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         logger.info("Program start");
+        logger.info("Path program : " + System.getProperty("user.dir"));
 
-        AnalyzerFile data = new AnalyzerFile("1");
+        AnalyzerFile data = new AnalyzerFile("c:\\VisualSound\\tmp_input.txt");
 
+        logger.info("Class path : " + data.pathFile);
         data.analyze();
 
 
