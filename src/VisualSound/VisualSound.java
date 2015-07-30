@@ -12,10 +12,7 @@ public class VisualSound {
     public static void main(String[] args) {
         logger.info("Program start");
 
- //       WavFile wavFile = WavFile.openWavFile(new File(args[0]));
-
-
-        System.out.println("Firth commit?");
+        AnalyzerFile date = new AnalyzerFile("1");
 
     }
 }
