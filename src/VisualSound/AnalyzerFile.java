@@ -9,12 +9,34 @@ import java.util.ArrayList;
  */
 public class AnalyzerFile {
     final static Logger logger = Logger.getLogger(VisualSound.class);
+    Integer[] data = null;
+    Integer[] output = null;
 
-    Integer data[] = null;
+    public Integer[] getData() {
+        return data;
+    }
+
+    public void setData(Integer[] data) {
+        this.data = data;
+    }
+
+    public Integer[] getOutput() {
+        return output;
+    }
+
+    public void setOutput(Integer[] output) {
+        this.output = output;
+    }
 
     AnalyzerFile(String s) {
         logger.info("File name : " + s);
+
     }
 
+    public static Boolean analyze () {
+
+        // return -> FALSE
+        return false;
+    }
 
 }

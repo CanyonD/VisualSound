@@ -12,7 +12,11 @@ public class VisualSound {
     public static void main(String[] args) {
         logger.info("Program start");
 
-        AnalyzerFile date = new AnalyzerFile("1");
+        AnalyzerFile data = new AnalyzerFile("1");
+
+        data.analyze();
+
+
 
     }
 }
