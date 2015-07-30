@@ -15,10 +15,8 @@ public class VisualSound {
 
         AnalyzerFile data = new AnalyzerFile("c:\\VisualSound\\tmp_input.txt");
 
-        logger.info("Class path : " + data.pathFile);
         data.analyze();
-
-
+        data.result();
 
     }
 }

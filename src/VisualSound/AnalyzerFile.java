@@ -9,25 +9,10 @@ import java.io.*;
  */
 public class AnalyzerFile {
     final static Logger logger = Logger.getLogger(VisualSound.class);
-    Integer[] data = null;
-    Integer[] output = null;
+    static Integer[] data;
+    static Integer[] output;
     public String pathFile;
-
-    public Integer[] getData() {
-        return data;
-    }
-
-    public void setData(Integer[] data) {
-        this.data = data;
-    }
-
-    public Integer[] getOutput() {
-        return output;
-    }
-
-    public void setOutput(Integer[] output) {
-        this.output = output;
-    }
+    String tempFilePathOutput = "c:\\VisualSound\\tmp_out.txt";
 
     public AnalyzerFile () {
         logger.info("Class null constructor start");
@@ -37,11 +22,14 @@ public class AnalyzerFile {
         logger.info("Class constructor start with path");
         logger.info("File name : " + s);
         pathFile = s;
+        output = new Integer[256];
+        for (int i = 0; i < 256; i++) {
+            output[i] = 0;
+        }
     }
 
     public Boolean analyze () throws IOException {
-        Character tempValue;
-        String tempFilePathOutput = "c:\\VisualSound\\tmp_out.txt";
+        Integer tempValue;
         try {
             logger.info("Start analyze file : " + pathFile);
             FileInputStream file = new FileInputStream(pathFile);
@@ -49,9 +37,11 @@ public class AnalyzerFile {
             RandomAccessFile writeFile = new RandomAccessFile(
                             tempFilePathOutput ,
                             "rw");
+        // Find end file
             while (file.available() != 0) {
-                tempValue = dataFile.readChar();
+                tempValue = (int) dataFile.readByte();
                 writeFile.writeChar(tempValue);
+                output[tempValue]++;
             }
             dataFile.close();
             logger.info("End analyze file " +
@@ -68,11 +58,13 @@ public class AnalyzerFile {
         }
         catch (FileNotFoundException e) {
             logger.error("File Not Found Exception : " + e);
+            logger.error("Message : " + e.getMessage());
             e.printStackTrace();
             return false;
         }
         catch (IOException e) {
             logger.error("File Exception : " + e);
+            logger.error("Message : " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -81,4 +73,13 @@ public class AnalyzerFile {
         return false;
     }
 
+    public void result() {
+        logger.info("Result write, length : " + output.length);
+        for (int i = 0; i < output.length; i++) {
+            System.out.print(output[i] + " ");
+            // Перенос строки
+            if(((i+1) % 64) == 0)
+                System.out.println();
+        }
+    }
 }
