@@ -13,14 +13,14 @@ public class AnalyzerFile {
     static Integer[] output;
     public String pathFile;
     String tempFilePathOutput = "c:\\VisualSound\\tmp_out.txt";
-    String tempFilePathResult = "Result.txt";
+    String tempFilePathResult = System.getProperty("user.dir") + "\\" + "Result.txt";
 
     public AnalyzerFile () {
         logger.info("Class null constructor start");
     }
 
     public AnalyzerFile(String s) {
-        logger.info("Class constructor start with path");
+        logger.info("Class constructor start.");
         logger.info("File name : " + s);
         pathFile = s;
         output = new Integer[256];
@@ -31,25 +31,27 @@ public class AnalyzerFile {
 
     public Boolean analyze () throws IOException {
         Integer tempValue;
+        Integer num = 0;
         try {
-            logger.info("Start analyze file : " + pathFile);
+            logger.info("Start analyze file ");
             FileInputStream file = new FileInputStream(pathFile);
             DataInputStream dataFile = new DataInputStream(file);
             RandomAccessFile writeFile = new RandomAccessFile(
-                            tempFilePathOutput ,
+                            tempFilePathOutput,
                             "rw");
         // Find end file
             while (file.available() != 0) {
                 tempValue = dataFile.readUnsignedByte();
                 writeFile.writeByte(tempValue & 0xFF);
                 output[tempValue]++;
+                num++;
             }
             dataFile.close();
-            logger.info("End analyze file " +
-                    pathFile +
-                    " : tmp to : " +
-                    tempFilePathOutput
+            logger.info("End analyze file | "
+                            + "file size : " + num + " bytes"
+                            + " | tmp to : " + tempFilePathOutput
             );
+            return true;
         }
         catch (ArrayIndexOutOfBoundsException e) {
             logger.error("ArrayIndexOutOfBoundsException : " + e);
@@ -75,9 +77,6 @@ public class AnalyzerFile {
             e.printStackTrace();
             return false;
         }
-
-        // return -> FALSE
-        return false;
     }
 
     public void result() {
@@ -102,6 +101,7 @@ public class AnalyzerFile {
             for (int i = 0; i < output.length; i++) {
                 writeFile.writeInt(output[i]);
             }
+            logger.info("Result write to file : " + tempFilePathResult);
         }
         catch (FileNotFoundException e) {
             logger.error("File Not Found Exception : " + e);
