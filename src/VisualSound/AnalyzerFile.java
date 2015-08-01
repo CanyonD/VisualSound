@@ -10,7 +10,7 @@ import java.io.*;
 public class AnalyzerFile {
     final static Logger logger = Logger.getLogger(VisualSound.class);
     static Integer[] data;
-    static Integer[] output;
+    static int[] output;
     public String pathFile;
     String tempFilePathOutput = "c:\\VisualSound\\tmp_out.txt";
     String tempFilePathResult = System.getProperty("user.dir") + "\\" + "Result.txt";
@@ -23,10 +23,12 @@ public class AnalyzerFile {
         logger.info("Class constructor start.");
         logger.info("File name : " + s);
         pathFile = s;
-        output = new Integer[256];
-        for (int i = 0; i < 256; i++) {
-            output[i] = 0;
-        }
+
+//        // Reset and initialize data[]
+        output = new int[256];
+//        for (int i = 0; i < 256; i++) {
+//            output[i] = 0;
+//        }
     }
 
     public Boolean analyze () throws IOException {
@@ -83,12 +85,12 @@ public class AnalyzerFile {
         logger.info("Result write, length : " + output.length);
 
 //        Вывод данных на экран
-//        for (int i = 0; i < output.length; i++) {
-//            System.out.print(output[i] + "\t");
-//            // Перенос строки
-//            if(((i+1) % 32) == 0)
-//                System.out.println();
-//        }
+        for (int i = 0; i < output.length; i++) {
+            System.out.print(output[i] + "\t");
+            // Перенос строки
+            if(((i+1) % 32) == 0)
+                System.out.println();
+        }
 
         // Вывод данных в 32 столбца
 
