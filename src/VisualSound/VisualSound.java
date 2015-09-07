@@ -18,6 +18,11 @@ public class VisualSound {
         if (args.length < 1) {
             logger.error("Program start without arguments!");
 
+            convert File = new convert(new File("c:\\VisualCubie\\eralash_minus.wav"));
+
+            File.playSound();
+
+/*
             Integer num = 65536;
             Integer data[] = new Integer[num];
             analyzer analyzer = new analyzer(data, num);
@@ -40,6 +45,7 @@ public class VisualSound {
                 System.out.print(result[i] + "\t");
                 if (((i+1)%16) == 0) System.out.println();
             }
+*/
             return;
         }
         else {
